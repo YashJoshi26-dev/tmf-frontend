@@ -74,7 +74,7 @@ export default function Home() {
             <NewsletterSignup />
             <div className="rounded-xl overflow-hidden border border-white/10 h-[280px]">
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3679.8!2d75.8573!3d22.7196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjLCsDQzJzEwLjYiTiA3NcKwNTEnMjYuMyJF!5e0!3m2!1sen!2sin!4v1!5m2!1sen!2sin&q=75+Shekhawat+Market+Sitlamata+Bazar+Indore"
+                src="https://maps.google.com/maps?q=75+Shekhawat+Market+1st+Floor+Sitlamata+Bazar+Indore+452007&t=&z=17&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}

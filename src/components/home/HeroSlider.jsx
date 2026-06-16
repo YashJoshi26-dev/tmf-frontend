@@ -10,6 +10,7 @@ import hero4 from '../../assets/hero4.jpeg';
 const FALLBACK_SLIDES = [
   {
     image: hero1,
+    mobilePosition: '70% center',
     eyebrow: 'The Bridal Edit',
     title: 'Women for Forever',
     subtitle: 'Handpicked bridal couture, from Banarasi heirlooms to contemporary lehengas.',
@@ -18,6 +19,7 @@ const FALLBACK_SLIDES = [
   },
   {
     image: hero2,
+    mobilePosition: '70% center',
     eyebrow: 'New Arrivals',
     title: 'Festive Drape · 2026',
     subtitle: 'Silks, zari and craft — the new season in one curated edit.',
@@ -26,6 +28,7 @@ const FALLBACK_SLIDES = [
   },
   {
     image: hero4,
+    mobilePosition: 'center center',
     eyebrow: 'Heritage Weaves',
     title: 'Banarasi, Reimagined',
     subtitle: 'A tribute to the loom — modern silhouettes, traditional craftsmanship.',
@@ -36,6 +39,13 @@ const FALLBACK_SLIDES = [
 
 export const HeroSlider = ({ slides = FALLBACK_SLIDES, intervalMs = 6000 }) => {
   const [i, setI] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     if (slides.length <= 1) return;
@@ -45,19 +55,84 @@ export const HeroSlider = ({ slides = FALLBACK_SLIDES, intervalMs = 6000 }) => {
 
   const s = slides[i];
 
+  /* ── MOBILE LAYOUT ── */
+  if (isMobile) {
+    return (
+      <section className="w-full bg-brand-charcoal flex flex-col">
+        {/* Image — top 55% */}
+        <div className="relative w-full overflow-hidden" style={{ height: '55svh' }}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={i}
+              className="absolute inset-0"
+              initial={{ opacity: 0, scale: 1.04 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.2 }}
+            >
+              <img
+                src={s.image}
+                alt={s.title}
+                className="w-full h-full object-cover"
+                style={{ objectPosition: s.mobilePosition }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-brand-charcoal" />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Text — bottom */}
+        <div className="px-6 pt-4 pb-10 bg-brand-charcoal">
+          <motion.div
+            key={`text-${i}`}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="text-white"
+          >
+            <p className="eyebrow text-brand-gold text-xs tracking-widest">{s.eyebrow}</p>
+            <h1 className="heading-display mt-2 leading-tight text-3xl">{s.title}</h1>
+            <p className="mt-2 text-white/75 text-sm max-w-sm">{s.subtitle}</p>
+            <Link to={s.link} className="btn-gold mt-5 inline-block">{s.cta}</Link>
+          </motion.div>
+
+          {/* Dots */}
+          <div className="flex gap-1.5 mt-6">
+            {slides.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setI(idx)}
+                className={`h-1 transition-all ${idx === i ? 'w-8 bg-brand-gold' : 'w-4 bg-white/30'}`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  /* ── DESKTOP LAYOUT ── */
   return (
-    <section className="relative w-full overflow-hidden bg-brand-charcoal">
+    <section
+      className="relative w-full overflow-hidden bg-brand-charcoal"
+      style={{ height: '100svh', maxHeight: '900px', minHeight: '580px' }}
+    >
       <AnimatePresence mode="wait">
         <motion.div
           key={i}
-          className="relative w-full"
+          className="absolute inset-0"
           initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 1.2 }}
         >
-          <img src={s.image} alt={s.title} className="w-full h-auto block" />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+          <img
+            src={s.image}
+            alt={s.title}
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/35 to-transparent" />
         </motion.div>
       </AnimatePresence>
 
@@ -70,13 +145,13 @@ export const HeroSlider = ({ slides = FALLBACK_SLIDES, intervalMs = 6000 }) => {
           className="text-white max-w-xl"
         >
           <p className="eyebrow text-brand-gold">{s.eyebrow}</p>
-          <h1 className="heading-display mt-4 leading-tight">{s.title}</h1>
-          <p className="mt-4 text-white/85 text-base md:text-lg max-w-md">{s.subtitle}</p>
-          <Link to={s.link} className="btn-gold mt-8">{s.cta}</Link>
+          <h1 className="heading-display mt-3 leading-tight text-5xl lg:text-6xl">{s.title}</h1>
+          <p className="mt-4 text-white/85 text-lg max-w-md">{s.subtitle}</p>
+          <Link to={s.link} className="btn-gold mt-8 inline-block">{s.cta}</Link>
         </motion.div>
       </div>
 
-      {/* Arrows — desktop only */}
+      {/* Arrows */}
       {slides.length > 1 && (
         <div className="hidden md:flex absolute bottom-8 right-8 gap-2 z-10">
           <button

@@ -20,8 +20,38 @@ const TILES = [
 const CARD_W = 300;
 const CARD_H = 400;
 
+const ThreeDotLoader = ({ size = 10 }) => {
+  const colors = ['#4285F4', '#EA4335', '#FBBC05', '#34A853', '#4285F4'];
+  return (
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
+      {colors.map((color, idx) => (
+        <span
+          key={idx}
+          style={{
+            width: size,
+            height: size,
+            borderRadius: '50%',
+            backgroundColor: color,
+            display: 'inline-block',
+            animation: 'three-dot-bounce 1.4s infinite ease-in-out both',
+            animationDelay: `${idx * 0.16}s`,
+          }}
+        />
+      ))}
+      <style>{`
+        @keyframes three-dot-bounce {
+          0%, 80%, 100% { transform: scale(0); opacity: 0.4; }
+          40% { transform: scale(1); opacity: 1; }
+        }
+      `}</style>
+    </div>
+  );
+};
+
 export const CategoryTiles = () => (
   <section style={{ padding: '64px 0 96px' }}>
+    <ThreeDotLoader />
+
     <div style={{ textAlign: 'center', marginBottom: '48px' }}>
       <p className="eyebrow">Browse by Style</p>
       <h2 className="heading-display" style={{ marginTop: '12px' }}>Shop by Category</h2>

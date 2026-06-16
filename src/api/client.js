@@ -12,6 +12,10 @@ const client = axios.create({
 // ---------- Request: attach access token ----------
 client.interceptors.request.use((config) => {
   const token = storage.get('accessToken');
+if (token) {
+  const cleanToken = typeof token === 'string' ? token.replace(/^"|"$/g, '') : token;
+  config.headers.Authorization = `Bearer ${cleanToken}`;
+}
   if (token) config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
