@@ -9,7 +9,7 @@ import BridalImg    from '@/assets/Bridal_saree.png';
 import PashminaImg  from '@/assets/Pashmina_saree.png';
 
 const TILES = [
-  { label: 'Banarasi',     image: BanarsiImg,   to: '/category/Sarees/banarasi' },
+  // { label: 'Banarasi',     image: BanarsiImg,   to: '/category/Sarees/banarasi' },
   { label: 'Rajputani',    image: RajputaniImg, to: '/category/rajputani' },
   { label: 'Patola',       image: PatolaImg,    to: '/category/Sarees/patola' },
  { label: 'Lehenga', image: LehengaImg, to: '/category/Lehengas' },

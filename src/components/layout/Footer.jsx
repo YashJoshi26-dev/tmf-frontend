@@ -59,7 +59,7 @@ export const Footer = () => (
         </div>
 
         <COL title="Shop" links={[
-          { to: '/category/saree',   label: 'Sarees' },
+          { to: '/category/Sarees',   label: 'Sarees' },
           { to: '/category/lehenga', label: 'Lehengas' },
           { to: '/bridal',           label: 'Bridal' },
           { to: '/collections',      label: 'Collections' },

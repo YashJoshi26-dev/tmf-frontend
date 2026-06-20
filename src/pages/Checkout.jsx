@@ -24,6 +24,7 @@ const PAYMENT_METHODS = [
     label: 'Cash on Delivery',
     desc: 'Pay when you receive your order',
     icon: '💵',
+    disabed: true, 
   },
 ];
 
@@ -85,6 +86,12 @@ export default function Checkout() {
     if (placing) return;
     const addr = addresses.find((a) => a._id === selectedAddrId);
     if (!addr) return toast.error('Please choose a delivery address');
+
+    // Block COD
+    if (method === 'cod') {
+      toast.error('Cash on Delivery is not available at your location. Please choose UPI / Cards / Netbanking.');
+      return;
+    }
 
     setPlacing(true);
     try {

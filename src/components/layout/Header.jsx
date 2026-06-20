@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Search, User, Heart, ShoppingBag, Menu, X, ChevronDown } from 'lucide-react';
 import { useSelector } from 'react-redux';
@@ -10,7 +10,7 @@ import { cn } from '@/utils/cn';
 
 const NAV = [
   { to: '/category/Sarees', label: 'Sarees' },
-  { to: '/category/Sarees/banarasi', label: 'Banarasi' },
+  // { to: '/category/Sarees/banarasi', label: 'Banarasi' },
   { to: '/category/Sarees/pashmina', label: 'Pashmina' },
   {
     to: '/category/Lehengas',
@@ -36,6 +36,17 @@ export const Header = () => {
   const cartCount = useSelector(selectCartCount);
   const authed = useSelector(selectIsAuthed);
   const dir = useScrollDirection();
+  const navRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setDropdown(null);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const submitSearch = (e) => {
     e.preventDefault();
@@ -71,26 +82,24 @@ export const Header = () => {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav ref={navRef} className="hidden md:flex items-center gap-8">
             {NAV.map((n) => (
               n.sub ? (
                 // Dropdown item
                 <div
                   key={n.to}
                   className="relative"
-                  onMouseEnter={() => setDropdown(n.to)}
-                  onMouseLeave={() => setDropdown(null)}
                 >
-                  <NavLink
-                    to={n.to}
-                    className={({ isActive }) => cn(
-                      'text-sm tracking-wide text-white/80 hover:text-brand-gold transition-colors flex items-center gap-1',
-                      isActive && 'text-brand-gold'
+                  <button
+                    type="button"
+                    onClick={() => setDropdown(dropdown === n.to ? null : n.to)}
+                    className={cn(
+                      'text-sm tracking-wide text-white/80 hover:text-brand-gold transition-colors flex items-center gap-1'
                     )}
                   >
                     {n.label}
                     <ChevronDown size={13} className={cn('transition-transform', dropdown === n.to && 'rotate-180')} />
-                  </NavLink>
+                  </button>
 
                   {/* Dropdown menu */}
                   {dropdown === n.to && (
