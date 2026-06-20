@@ -122,31 +122,26 @@ export default function Checkout() {
       }
 
       // Razorpay flow
-      // if (!payment) throw new Error('Payment session not created');
-      // await openRazorpay({
-      //   payment,
-      //   order,
-      //   user,
-      //   onSuccess: async (rzpResponse) => {
-      //     try {
-      //       await ordersApi.verifyRazorpay(order._id, {
-      //         razorpay_order_id:   rzpResponse.razorpay_order_id,
-      //         razorpay_payment_id: rzpResponse.razorpay_payment_id,
-      //         razorpay_signature:  rzpResponse.razorpay_signature,
-      //       });
-      //       dispatch(clearCart());
-      //       navigate(`/order/success/${order._id}`);
-      //     } catch (e) {
-      //       toast.error(e.message || 'Payment verification failed');
-      //     }
-      //   },
-      //   onFailure: (err) => toast.error(err?.description || err?.message || 'Payment failed'),
-      // });
-      dispatch(clearCart());
-toast.success(`Order placed! ${order.orderId}`);
-navigate(`/order/success/${order._id}`);
-return;
-
+      if (!payment) throw new Error('Payment session not created');
+      await openRazorpay({
+        payment,
+        order,
+        user,
+        onSuccess: async (rzpResponse) => {
+          try {
+            await ordersApi.verifyRazorpay(order._id, {
+              razorpay_order_id:   rzpResponse.razorpay_order_id,
+              razorpay_payment_id: rzpResponse.razorpay_payment_id,
+              razorpay_signature:  rzpResponse.razorpay_signature,
+            });
+            dispatch(clearCart());
+            navigate(`/order/success/${order._id}`);
+          } catch (e) {
+            toast.error(e.message || 'Payment verification failed');
+          }
+        },
+        onFailure: (err) => toast.error(err?.description || err?.message || 'Payment failed'),
+      });
     } catch (e) {
       toast.error(e.message || 'Could not place order');
     } finally {

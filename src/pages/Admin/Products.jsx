@@ -16,7 +16,8 @@ export default function ProductsAdmin() {
   const { data, isLoading } = useQuery({
     queryKey: ['admin', 'products', page, debouncedQ],
     queryFn: () => productsApi.list({ page, limit: 20, search: debouncedQ || undefined }).then((r) => r),
-  });
+ refetchInterval: 30000,
+ });
 
   const items = data?.data || [];
   const meta = data?.meta;
