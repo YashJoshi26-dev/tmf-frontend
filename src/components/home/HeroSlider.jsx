@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-import hero1 from '../../assets/hero1.png';
-import hero2 from '../../assets/hero2.png';
+import hero1 from '../../assets/hero1.webp';
+import hero2 from '../../assets/hero2.webp';
 import hero4 from '../../assets/hero4.jpeg';
 
 const FALLBACK_SLIDES = [
@@ -59,7 +59,6 @@ export const HeroSlider = ({ slides = FALLBACK_SLIDES, intervalMs = 6000 }) => {
   if (isMobile) {
     return (
       <section className="w-full bg-brand-charcoal flex flex-col">
-        {/* Image — top 55% */}
         <div className="relative w-full overflow-hidden" style={{ height: '55svh' }}>
           <AnimatePresence mode="wait">
             <motion.div
@@ -75,13 +74,16 @@ export const HeroSlider = ({ slides = FALLBACK_SLIDES, intervalMs = 6000 }) => {
                 alt={s.title}
                 className="w-full h-full object-cover"
                 style={{ objectPosition: s.mobilePosition }}
+                loading="eager"
+                fetchPriority="high"
+                width={800}
+                height={600}
               />
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-brand-charcoal" />
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Text — bottom */}
         <div className="px-6 pt-4 pb-10 bg-brand-charcoal">
           <motion.div
             key={`text-${i}`}
@@ -96,7 +98,6 @@ export const HeroSlider = ({ slides = FALLBACK_SLIDES, intervalMs = 6000 }) => {
             <Link to={s.link} className="btn-gold mt-5 inline-block">{s.cta}</Link>
           </motion.div>
 
-          {/* Dots */}
           <div className="flex gap-1.5 mt-6">
             {slides.map((_, idx) => (
               <button
@@ -131,6 +132,10 @@ export const HeroSlider = ({ slides = FALLBACK_SLIDES, intervalMs = 6000 }) => {
             src={s.image}
             alt={s.title}
             className="w-full h-full object-cover object-center"
+            loading="eager"
+            fetchPriority="high"
+            width={1920}
+            height={900}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/35 to-transparent" />
         </motion.div>
@@ -151,7 +156,6 @@ export const HeroSlider = ({ slides = FALLBACK_SLIDES, intervalMs = 6000 }) => {
         </motion.div>
       </div>
 
-      {/* Arrows */}
       {slides.length > 1 && (
         <div className="hidden md:flex absolute bottom-8 right-8 gap-2 z-10">
           <button
@@ -167,7 +171,6 @@ export const HeroSlider = ({ slides = FALLBACK_SLIDES, intervalMs = 6000 }) => {
         </div>
       )}
 
-      {/* Dots */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
         {slides.map((_, idx) => (
           <button

@@ -16,9 +16,34 @@ export default function Home() {
 
   return (
     <>
-      <Seo
+ <Seo
   canonical="/"
   description="Shop premium Banarasi, Kanjivaram, Bridal sarees & Lehengas online. The Maharaja Fashion – Indore's finest ethnic wear boutique."
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'The Maharaja Fashion',
+    url: 'https://themaharajafashion.com',
+    logo: 'https://themaharajafashion.com/tmf_logo.png',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+91-7869320513',
+      contactType: 'customer service',
+      areaServed: 'IN',
+      availableLanguage: ['Hindi', 'English'],
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: '75 Shekhawat Market, 1st Floor, Sitlamata Bazar',
+      addressLocality: 'Indore',
+      addressRegion: 'Madhya Pradesh',
+      postalCode: '452007',
+      addressCountry: 'IN',
+    },
+    sameAs: [
+      'https://www.instagram.com/maharaja_fashion159',
+    ],
+  }}
 />
       <HeroSlider />
       <CategoryTiles />
