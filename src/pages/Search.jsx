@@ -30,7 +30,10 @@ export default function Search() {
 
   return (
     <div className="container-x py-6 md:py-10">
-      <Seo title={debounced ? `Search: ${debounced}` : 'Search'} />
+      <Seo
+  title={debounced ? `Search: ${debounced}` : 'Search'}
+  canonical="/search"
+/>
       <h1 className="font-serif text-3xl md:text-5xl mb-6">Search</h1>
       <input
         autoFocus

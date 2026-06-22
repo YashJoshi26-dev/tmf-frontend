@@ -12,7 +12,11 @@ const SHOTS = [
 export default function Lookbook() {
   return (
     <div>
-      <Seo title="Lookbook" />
+      <Seo
+  title="Lookbook 2026"
+  description="Explore The Maharaja Fashion Lookbook – an editorial collection of premium sarees, lehengas and bridal wear."
+  canonical="/lookbook"
+/>
       <section className="container-x py-12 md:py-20 text-center">
         <p className="eyebrow">Edit · 2026</p>
         <h1 className="heading-display mt-3">The Lookbook</h1>

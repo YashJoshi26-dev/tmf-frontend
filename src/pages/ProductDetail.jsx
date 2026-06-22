@@ -96,28 +96,39 @@ export default function ProductDetail() {
     }
   };
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: product.name,
-    description: product.description,
-    image: variant?.images?.map(i => i.url) || [],
-    brand: { '@type': 'Brand', name: product.brand || 'Saree Showroom' },
-    offers: {
-      '@type': 'Offer',
-      priceCurrency: 'INR',
-      price,
-      availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
-    },
-    aggregateRating: product.numReviews ? {
-      '@type': 'AggregateRating', ratingValue: product.rating, reviewCount: product.numReviews,
-    } : undefined,
-  };
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: product.name,
+  description: product.description,
+  image: variant?.images?.map(i => i.url) || [],
+  url: `https://themaharajafashion.com/product/${product.slug}`,
+  brand: { '@type': 'Brand', name: product.brand || 'The Maharaja Fashion' },
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'INR',
+    price,
+    url: `https://themaharajafashion.com/product/${product.slug}`,
+    seller: { '@type': 'Organization', name: 'The Maharaja Fashion' },
+    availability: inStock ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+  },
+  aggregateRating: product.numReviews ? {
+    '@type': 'AggregateRating',
+    ratingValue: product.rating,
+    reviewCount: product.numReviews,
+  } : undefined,
+};
 
   return (
     <div className="container-x py-6 md:py-10">
-      <Seo title={product.name} description={product.description} image={variant?.images?.[0]?.url} type="product" jsonLd={jsonLd} />
-
+<Seo
+  title={product.name}
+  description={product.description?.slice(0, 155)}
+  image={variant?.images?.[0]?.url}
+  type="product"
+  canonical={`/product/${product.slug}`}
+  jsonLd={jsonLd}
+/>
       <Breadcrumbs items={[
         { label: product.category?.name || 'Shop', to: `/category/${product.category?.slug}` },
         { label: product.name },

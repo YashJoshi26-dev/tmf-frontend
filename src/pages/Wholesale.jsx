@@ -15,7 +15,11 @@ export default function Wholesale() {
 
   return (
     <div className="container-x py-16 max-w-3xl mx-auto">
-      <Seo title="Wholesale Enquiry" />
+    <Seo
+  title="Wholesale Enquiry"
+  description="Partner with The Maharaja Fashion for bulk saree & lehenga orders. B2B pricing for boutiques and retailers."
+  canonical="/wholesale"
+/>
       <div className="text-center mb-12">
         <p className="eyebrow">For Boutiques & Retailers</p>
         <h1 className="font-serif text-3xl md:text-5xl mt-3">Wholesale Enquiry</h1>

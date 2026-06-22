@@ -50,8 +50,11 @@ export default function Category() {
 
   return (
     <div className="container-x py-6 md:py-10">
-      <Seo title={[sub, cat].filter(Boolean).join(' · ') || 'Shop'} />
-      <Breadcrumbs items={crumbs} />
+      <Seo
+        title={[sub, cat].filter(Boolean).join(' · ') || 'Shop'}
+        description={`Shop ${sub || cat || 'all'} sarees and ethnic wear at The Maharaja Fashion. Premium handpicked collection.`}
+        canonical={`/category/${[cat, sub].filter(Boolean).join('/')}`}
+      />      <Breadcrumbs items={crumbs} />
 
       <div className="flex items-end justify-between mt-4 mb-8">
         <h1 className="font-serif text-3xl md:text-5xl capitalize">{sub || cat || 'All Products'}</h1>

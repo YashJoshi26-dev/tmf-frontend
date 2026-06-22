@@ -158,7 +158,7 @@ export default function Checkout() {
 
   return (
     <div className="container-x py-6 md:py-10">
-      <Seo title="Checkout" />
+      <Seo title="Checkout" canonical="/checkout" />
       <Breadcrumbs items={[{ label: 'Bag', to: '/cart' }, { label: 'Checkout' }]} />
       <h1 className="font-serif text-3xl md:text-5xl mt-6 mb-10">Checkout</h1>
 

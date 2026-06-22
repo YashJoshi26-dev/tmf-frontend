@@ -16,7 +16,10 @@ export default function Home() {
 
   return (
     <>
-      <Seo />
+      <Seo
+  canonical="/"
+  description="Shop premium Banarasi, Kanjivaram, Bridal sarees & Lehengas online. The Maharaja Fashion – Indore's finest ethnic wear boutique."
+/>
       <HeroSlider />
       <CategoryTiles />
 
